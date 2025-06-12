@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class CaixaDeFerramentas {
 
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public CaixaDeFerramentas() {
         simpleDateFormat.setLenient(false);//faz com que datas erradas sejam detectadas

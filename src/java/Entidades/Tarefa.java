@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author unknowndev
+ * @author mvitoria
  */
 @Entity
 @Table(name = "tarefa")
@@ -33,7 +33,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Tarefa.findAll", query = "SELECT t FROM Tarefa t"),
     @NamedQuery(name = "Tarefa.findByIdTarefa", query = "SELECT t FROM Tarefa t WHERE t.idTarefa = :idTarefa"),
     @NamedQuery(name = "Tarefa.findByTituloTarefa", query = "SELECT t FROM Tarefa t WHERE t.tituloTarefa = :tituloTarefa"),
-    @NamedQuery(name = "Tarefa.findByDataFinalizarTarefa", query = "SELECT t FROM Tarefa t WHERE t.dataFinalizarTarefa = :dataFinalizarTarefa")})
+    @NamedQuery(name = "Tarefa.findByDataFinalizarTarefa", query = "SELECT t FROM Tarefa t WHERE t.dataFinalizarTarefa = :dataFinalizarTarefa"),
+    @NamedQuery(name = "Tarefa.findByConcluidaTarefa", query = "SELECT t FROM Tarefa t WHERE t.concluidaTarefa = :concluidaTarefa")})
 public class Tarefa implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,8 +53,10 @@ public class Tarefa implements Serializable {
     @Column(name = "descricaoTarefa")
     private String descricaoTarefa;
     @Column(name = "dataFinalizarTarefa")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date dataFinalizarTarefa;
+    @Column(name = "concluidaTarefa")
+    private Boolean concluidaTarefa;
     @JoinColumn(name = "usuarioTarefa", referencedColumnName = "usuario")
     @ManyToOne(optional = false)
     private Usuario usuarioTarefa;
@@ -100,6 +103,14 @@ public class Tarefa implements Serializable {
 
     public void setDataFinalizarTarefa(Date dataFinalizarTarefa) {
         this.dataFinalizarTarefa = dataFinalizarTarefa;
+    }
+
+    public Boolean getConcluidaTarefa() {
+        return concluidaTarefa;
+    }
+
+    public void setConcluidaTarefa(Boolean concluidaTarefa) {
+        this.concluidaTarefa = concluidaTarefa;
     }
 
     public Usuario getUsuarioTarefa() {

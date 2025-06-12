@@ -1,10 +1,13 @@
 package Servlets;
 
 import DAOs.DAOTarefa;
+import DAOs.DAOUsuario;
 import Entidades.Tarefa;
+import Entidades.Usuario;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,21 +20,27 @@ public class CadastrarTarefa extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String titulo = request.getParameter("titulo");
-        String descricao = request.getParameter("descricao");
-        String dataFinalizarTarefa = request.getParameter("dataFinalizarTarefa");
-        
         CaixaDeFerramentas cdf = new CaixaDeFerramentas();
-        Tarefa tarefa = new Tarefa();
-        tarefa.setTituloTarefa(titulo);
-        tarefa.setDescricaoTarefa(descricao);
-        tarefa.setDataFinalizarTarefa(cdf.converteDeStringParaDate(dataFinalizarTarefa)); 
-        //tarefa.serConcluida(false); // por padrão, começa como não concluída
-        
-        DAOTarefa dao = new DAOTarefa();
-        dao.inserir(tarefa); // usando método herdado de DAOGenerico
+        DAOUsuario daoUsuario = new DAOUsuario();
+        DAOTarefa daoTarefa = new DAOTarefa();
 
-        response.sendRedirect("ListarTarefasServlet"); // redireciona após salvar
+        String tituloTarefa = request.getParameter("tituloTarefa");
+        String descricaoTarefa = request.getParameter("descricaoTarefa");
+        String dataFinalizarTarefa = request.getParameter("dataFinalizarTarefa");
+
+        Cookie[] cookie = request.getCookies();
+
+        Usuario usuario = daoUsuario.obter(cookie[0].getValue());
+        System.out.println("COOKIEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE " + usuario.toString());
+
+        Tarefa tarefa = new Tarefa();
+        tarefa.setTituloTarefa(tituloTarefa);
+        tarefa.setDescricaoTarefa(descricaoTarefa);
+        tarefa.setDataFinalizarTarefa(cdf.converteDeStringParaDate(dataFinalizarTarefa));
+        tarefa.setUsuarioTarefa(usuario);
+        daoTarefa.inserir(tarefa); // usando método herdado de DAOGenerico
+
+        response.sendRedirect("mainPage.jsp"); // redireciona após salvar
     }
 
     @Override

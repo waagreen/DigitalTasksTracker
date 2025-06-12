@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author unknowndev
+ * @author mvitoria
  */
 @Entity
 @Table(name = "usuario")

@@ -28,20 +28,20 @@
             <h4 class="mb-4">Organize suas tarefas:</h4>
 
             <div class="row row-cols-1 row-cols-md-3">
-                   <c:forEach var="tarefa" items="${tarefa}">
-                         <div class="col mb-4">
-                           <div class="card h-100">
-                               <div class="card-body">
-                                   <h5 class="card-title">${tarefa.tituloTarefa}</h5>
-                                   <h6 class="card-subtitle mb-2 text-muted">${tarefa.dataFinalizarTarefa}</h6>
-                                   <p class="card-text">${tarefa.descricaoTarefa}</p>
-                     <form action="ExcluirTarefa" method="post">
-                         <input type="hidden" name="idTarefa" value="${tarefa.idTarefa}">
-                         <button class="btn btn-danger btn-sm">Excluir</button>
-                     </form> 
-                 </div>
-             </div>
-         </div> 
+                <c:forEach var="tarefa" items="${tarefa}">
+                    <div class="col mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">${tarefa.tituloTarefa}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">${tarefa.dataFinalizarTarefa}</h6>
+                                <p class="card-text">${tarefa.descricaoTarefa}</p>
+                                <form action="ExcluirTarefa" method="post">
+                                    <input type="hidden" name="idTarefa" value="${tarefa.idTarefa}">
+                                    <button class="btn btn-danger btn-sm">Excluir</button>
+                                </form> 
+                            </div>
+                        </div>
+                    </div> 
                 </c:forEach>
             </div>
         </main>
@@ -65,6 +65,10 @@
                         <div class="form-group">
                             <label for="descricaoTarefa">Descrição</label>
                             <textarea class="form-control" id="descricaoTarefa" name="descricaoTarefa" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="descricaoTarefa">Data</label>
+                            <input type="date" class="form-control" id="dataFinalizarTarefa" name="dataFinalizarTarefa" required></input>
                         </div>
                     </div>
 
