@@ -1,8 +1,13 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page import="tools.CaixaDeFerramentas"%>
+<%@page import="Entidades.Tarefa"%>
+<%@page import="java.util.List"%>
+<%@page import="DAOs.DAOTarefa"%>
+<%@page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html lang="pt-br">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,29 +21,67 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </head>
 
+    <%
+        Cookie[] cookie = request.getCookies();
+        DAOTarefa daoTarefa = new DAOTarefa();
+        List<Tarefa> tarefas = null;
+        for (int i = 0; i < cookie.length; i++) {
+            if (cookie[i].getName().equals("user")) {
+                tarefas = daoTarefa.listByUsuario(cookie[i].getValue());
+            }
+        }
+    %>
+
     <body>
-        <header class="bg-light p-3 mb-4">
-            <div class="container">
+        <header class="bg-light p-3 mb-4 d-flex justify-content-between align-items-center">
+            <div>
                 <h1 class="text-primary">Tarefas</h1>
+            </div>
+            <div>
                 <button class="btn btn-success" data-toggle="modal" data-target="#novaTarefaModal">+ Nova Tarefa</button>
+                <a href="Perfil.jsp" class="btn btn-info">Perfil</a>
+                <a href="Logout" class="btn btn-danger">Logout</a>
             </div>
         </header>
 
         <main class="container">
             <h4 class="mb-4">Organize suas tarefas:</h4>
-
             <div class="row row-cols-1 row-cols-md-3">
-                <c:forEach var="tarefa" items="${tarefa}">
+                <c:forEach var="tarefa" items="<%=tarefas%>">
                     <div class="col mb-4">
                         <div class="card h-100">
                             <div class="card-body">
                                 <h5 class="card-title">${tarefa.tituloTarefa}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">${tarefa.dataFinalizarTarefa}</h6>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    <fmt:formatDate value="${tarefa.dataFinalizarTarefa}" pattern="dd/MM/yyyy"/>
+                                </h6>
                                 <p class="card-text">${tarefa.descricaoTarefa}</p>
-                                <form action="ExcluirTarefa" method="post">
-                                    <input type="hidden" name="idTarefa" value="${tarefa.idTarefa}">
-                                    <button class="btn btn-danger btn-sm">Excluir</button>
-                                </form> 
+
+                                <!-- Timer -->
+                                <div>
+                                    <span id="timer-${tarefa.idTarefa}">00:00:00</span><br>
+                                    <button class="btn btn-sm btn-outline-primary" onclick="startTimer(${tarefa.idTarefa})">Iniciar Timer</button>
+                                    <button class="btn btn-sm btn-outline-secondary" onclick="stopTimer(${tarefa.idTarefa})">Parar Timer</button>
+                                </div>
+
+                                <!-- Tags -->
+                                <div class="mt-2">
+                                    <span class="badge badge-info">ExemploTag</span>
+                                    <button class="btn btn-sm btn-outline-info" onclick="alert('Funcionalidade de Tags futura')">+ Tag</button>
+                                </div>
+
+                                <!-- Ações -->
+                                <div class="mt-3">
+                                    <form action="ConcluirTarefa" method="post" style="display:inline;">
+                                        <input type="hidden" name="idTarefa" value="${tarefa.idTarefa}">
+                                        <button class="btn btn-success btn-sm">Concluir</button>
+                                    </form> 
+
+                                    <form action="ExcluirTarefa" method="post" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir esta tarefa?');">
+                                        <input type="hidden" name="idTarefa" value="${tarefa.idTarefa}">
+                                        <button class="btn btn-danger btn-sm">Excluir</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div> 
@@ -67,8 +110,8 @@
                             <textarea class="form-control" id="descricaoTarefa" name="descricaoTarefa" rows="3"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="descricaoTarefa">Data</label>
-                            <input type="date" class="form-control" id="dataFinalizarTarefa" name="dataFinalizarTarefa" required></input>
+                            <label for="dataFinalizarTarefa">Data</label>
+                            <input type="date" class="form-control" id="dataFinalizarTarefa" name="dataFinalizarTarefa" required>
                         </div>
                     </div>
 
@@ -81,9 +124,14 @@
 
         <footer class="text-center mt-5">
             <blockquote class="blockquote">
-                <p>Frase motivacional aleatória. Lorem ipsum :)</p>
-                <footer class="blockquote-footer">Quem disse foi <cite title="Fonte">nome do autor</cite></footer>
+                <p>“Bora bora leonardo”</p>
+                <footer class="blockquote-footer">Maria</footer>
             </blockquote>
         </footer>
+
+        <!-- Script de Timer -->
+        <script>
+
+        </script>
     </body>
 </html>

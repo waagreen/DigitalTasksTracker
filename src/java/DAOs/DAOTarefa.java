@@ -33,6 +33,11 @@ public class DAOTarefa extends DAOGenerico<Tarefa> {
                 .setParameter("id", usuarioId)
                 .getResultList();
     }
+    public List<Tarefa> listByUsuario(String usuarioId) {
+        return em.createQuery("SELECT e FROM Tarefa e WHERE e.usuarioTarefa.usuario = :usuario", Tarefa.class)
+                .setParameter("usuario", usuarioId)
+                .getResultList();
+    }
 
     public List<Tarefa> listInOrderTitulo() {
         return em.createQuery("SELECT e FROM Tarefa e ORDER BY e.tituloTarefa", Tarefa.class).getResultList();

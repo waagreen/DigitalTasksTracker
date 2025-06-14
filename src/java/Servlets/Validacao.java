@@ -92,6 +92,8 @@ public class Validacao extends HttpServlet {
                 Cookie cookie = new Cookie("user", user);
                 cookie.setMaxAge(60 * 60);
                 response.addCookie(cookie);
+                System.out.println("COOKIE NA VALIDAÇÃO >>>>>>>>>>>>>>>>>>>>>>>>>> " + cookie.getValue());
+                
                 response.sendRedirect("mainPage.jsp");
                 // REMOVER A TAG QUE INDICA A URI DA BIBLIOTECA JAVA SUN
                 // NA PÁGINA .JSP, POIS ESTÁ CAUSANDO ERRO

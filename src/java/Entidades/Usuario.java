@@ -30,6 +30,14 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha")})
 public class Usuario implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 15)
+    @Column(name = "senha")
+    private String senha;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioNota")
+    private List<Nota> notaList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -37,11 +45,6 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "usuario")
     private String usuario;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 15)
-    @Column(name = "senha")
-    private String senha;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioTarefa")
     private List<Tarefa> tarefaList;
 
@@ -65,13 +68,6 @@ public class Usuario implements Serializable {
         this.usuario = usuario;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
 
     public List<Tarefa> getTarefaList() {
         return tarefaList;
@@ -104,6 +100,22 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "Entidades.Usuario[ usuario=" + usuario + " ]";
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public List<Nota> getNotaList() {
+        return notaList;
+    }
+
+    public void setNotaList(List<Nota> notaList) {
+        this.notaList = notaList;
     }
     
 }

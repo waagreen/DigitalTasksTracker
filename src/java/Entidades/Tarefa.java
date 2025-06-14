@@ -37,12 +37,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Tarefa.findByConcluidaTarefa", query = "SELECT t FROM Tarefa t WHERE t.concluidaTarefa = :concluidaTarefa")})
 public class Tarefa implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "idTarefa")
-    private Integer idTarefa;
     @Size(max = 45)
     @Column(name = "tituloTarefa")
     private String tituloTarefa;
@@ -52,6 +46,13 @@ public class Tarefa implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "descricaoTarefa")
     private String descricaoTarefa;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idTarefa")
+    private Integer idTarefa;
     @Column(name = "dataFinalizarTarefa")
     @Temporal(TemporalType.DATE)
     private Date dataFinalizarTarefa;
@@ -81,21 +82,6 @@ public class Tarefa implements Serializable {
         this.idTarefa = idTarefa;
     }
 
-    public String getTituloTarefa() {
-        return tituloTarefa;
-    }
-
-    public void setTituloTarefa(String tituloTarefa) {
-        this.tituloTarefa = tituloTarefa;
-    }
-
-    public String getDescricaoTarefa() {
-        return descricaoTarefa;
-    }
-
-    public void setDescricaoTarefa(String descricaoTarefa) {
-        this.descricaoTarefa = descricaoTarefa;
-    }
 
     public Date getDataFinalizarTarefa() {
         return dataFinalizarTarefa;
@@ -144,6 +130,22 @@ public class Tarefa implements Serializable {
     @Override
     public String toString() {
         return "Entidades.Tarefa[ idTarefa=" + idTarefa + " ]";
+    }
+
+    public String getTituloTarefa() {
+        return tituloTarefa;
+    }
+
+    public void setTituloTarefa(String tituloTarefa) {
+        this.tituloTarefa = tituloTarefa;
+    }
+
+    public String getDescricaoTarefa() {
+        return descricaoTarefa;
+    }
+
+    public void setDescricaoTarefa(String descricaoTarefa) {
+        this.descricaoTarefa = descricaoTarefa;
     }
     
 }
