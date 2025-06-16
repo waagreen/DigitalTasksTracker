@@ -21,3 +21,5 @@ src/conf/persistence.xml
 /nbproject
 /dist
 /build
+nbproject/private/private.xml
+nbproject/private/private.properties
