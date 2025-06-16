@@ -33,6 +33,7 @@ public class DAOTarefa extends DAOGenerico<Tarefa> {
                 .setParameter("id", usuarioId)
                 .getResultList();
     }
+
     public List<Tarefa> listByUsuario(String usuarioId) {
         return em.createQuery("SELECT e FROM Tarefa e WHERE e.usuarioTarefa.usuario = :usuario", Tarefa.class)
                 .setParameter("usuario", usuarioId)
@@ -45,6 +46,10 @@ public class DAOTarefa extends DAOGenerico<Tarefa> {
 
     public List<Tarefa> listInOrderId() {
         return em.createQuery("SELECT e FROM Tarefa e ORDER BY e.idTarefa", Tarefa.class).getResultList();
+    }
+
+    public List<Tarefa> tempoGastoPorTag() {
+        return em.createQuery("SELECT t.tagTarefa, SUM(t.tempoGasto) FROM Tarefa t GROUP BY t.tagTarefa", Tarefa.class).getResultList();
     }
 
     public List<String> listInOrderTituloStrings(String qualOrdem) {

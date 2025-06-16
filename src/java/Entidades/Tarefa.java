@@ -6,7 +6,9 @@ package Entidades;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +19,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -46,6 +49,14 @@ public class Tarefa implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "descricaoTarefa")
     private String descricaoTarefa;
+    @Size(max = 45)
+    @Column(name = "tagTarefa")
+    private String tagTarefa;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "tempoGasto")
+    private Float tempoGasto;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tarefa")
+    private List<TarefaHasTags> tarefaHasTagsList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -132,6 +143,23 @@ public class Tarefa implements Serializable {
         return "Entidades.Tarefa[ idTarefa=" + idTarefa + " ]";
     }
 
+
+    public Float getTempoGasto() {
+        return tempoGasto;
+    }
+
+    public void setTempoGasto(Float tempoGasto) {
+        this.tempoGasto = tempoGasto;
+    }
+
+    public List<TarefaHasTags> getTarefaHasTagsList() {
+        return tarefaHasTagsList;
+    }
+
+    public void setTarefaHasTagsList(List<TarefaHasTags> tarefaHasTagsList) {
+        this.tarefaHasTagsList = tarefaHasTagsList;
+    }
+
     public String getTituloTarefa() {
         return tituloTarefa;
     }
@@ -146,6 +174,14 @@ public class Tarefa implements Serializable {
 
     public void setDescricaoTarefa(String descricaoTarefa) {
         this.descricaoTarefa = descricaoTarefa;
+    }
+
+    public String getTagTarefa() {
+        return tagTarefa;
+    }
+
+    public void setTagTarefa(String tagTarefa) {
+        this.tagTarefa = tagTarefa;
     }
     
 }

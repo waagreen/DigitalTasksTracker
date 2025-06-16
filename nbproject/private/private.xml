@@ -18,9 +18,13 @@
             <file>file:/home/mvitoria/NetBeansProjects/SistemaToDo/src/java/Servlets/LogoutAdmin.java</file>
             <file>file:/home/mvitoria/NetBeansProjects/SistemaToDo/src/java/Servlets/Cadastrar.java</file>
             <file>file:/home/mvitoria/NetBeansProjects/SistemaToDo/src/java/Servlets/CRUDUsuario.java</file>
-            <file>file:/home/mvitoria/NetBeansProjects/SistemaToDo/src/conf/persistence.xml</file>
             <file>file:/home/mvitoria/NetBeansProjects/SistemaToDo/src/java/Servlets/MainPage.java</file>
             <file>file:/home/mvitoria/NetBeansProjects/SistemaToDo/src/java/Servlets/ExcluirTarefa.java</file>
+            <file>file:/home/mvitoria/NetBeansProjects/SistemaToDo/web/css/pagesCSS.css</file>
+            <file>file:/home/mvitoria/NetBeansProjects/SistemaToDo/web/notasPage.jsp</file>
+            <file>file:/home/mvitoria/NetBeansProjects/SistemaToDo/src/java/DAOs/DAONota.java</file>
+            <file>file:/home/mvitoria/NetBeansProjects/SistemaToDo/src/conf/persistence.xml</file>
+            <file>file:/home/mvitoria/NetBeansProjects/SistemaToDo/src/java/Entidades/Nota.java</file>
         </group>
     </open-files>
 </project-private>

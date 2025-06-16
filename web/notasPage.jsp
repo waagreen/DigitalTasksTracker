@@ -47,7 +47,7 @@
             mensagem = "Nota editada com sucesso!";
         }
 
-        response.sendRedirect("notas.jsp");
+        response.sendRedirect("ALGUM LUGAR AÍ");
     }
 %>
 

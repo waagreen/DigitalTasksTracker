@@ -90,6 +90,15 @@ public class Nota implements Serializable {
         return "Entidades.Nota[ idNota=" + idNota + " ]";
     }
 
+
+    public Usuario getUsuarioNota() {
+        return usuarioNota;
+    }
+
+    public void setUsuarioNota(Usuario usuarioNota) {
+        this.usuarioNota = usuarioNota;
+    }
+
     public String getTituloNota() {
         return tituloNota;
     }
@@ -104,14 +113,6 @@ public class Nota implements Serializable {
 
     public void setConteudoNota(String conteudoNota) {
         this.conteudoNota = conteudoNota;
-    }
-
-    public Usuario getUsuarioNota() {
-        return usuarioNota;
-    }
-
-    public void setUsuarioNota(Usuario usuarioNota) {
-        this.usuarioNota = usuarioNota;
     }
     
 }

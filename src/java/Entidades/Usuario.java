@@ -102,13 +102,6 @@ public class Usuario implements Serializable {
         return "Entidades.Usuario[ usuario=" + usuario + " ]";
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
 
     public List<Nota> getNotaList() {
         return notaList;
@@ -116,6 +109,14 @@ public class Usuario implements Serializable {
 
     public void setNotaList(List<Nota> notaList) {
         this.notaList = notaList;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
     
 }
