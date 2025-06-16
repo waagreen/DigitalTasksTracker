@@ -16,3 +16,5 @@ nb-configuration.xml
 *.ear
 
 src/conf/persistence.xml
+src/conf/persistence.xml
+/src/conf
