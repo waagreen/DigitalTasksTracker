@@ -32,7 +32,7 @@
             List<Tarefa> tarefas = null;
             for (int i = 0; i < cookie.length; i++) {
                 if (cookie[i].getName().equals("user")) {
-                    tarefas = daoTarefa.listByUsuario(cookie[i].getValue());
+                    tarefas = daoTarefa.listByUsuario(cookie[i].getValue(), Boolean.FALSE);
                 }
             }
             request.setAttribute("tarefas", tarefas);

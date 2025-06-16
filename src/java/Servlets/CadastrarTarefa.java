@@ -52,6 +52,7 @@ public class CadastrarTarefa extends HttpServlet {
         tarefa.setDescricaoTarefa(descricaoTarefa);
         tarefa.setDataFinalizarTarefa(cdf.converteDeStringParaDate(dataFinalizarTarefa));
         tarefa.setUsuarioTarefa(usuario);
+        tarefa.setConcluidaTarefa(Boolean.FALSE);
         daoTarefa.inserir(tarefa); // usando método herdado de DAOGenerico
 
         response.sendRedirect("mainPage.jsp"); // redireciona após salvar

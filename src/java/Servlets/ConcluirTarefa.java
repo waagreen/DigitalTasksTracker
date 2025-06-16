@@ -21,8 +21,8 @@ import tools.CaixaDeFerramentas;
  *
  * @author leonardo
  */
-@WebServlet(name = "ExcluirTarefa", urlPatterns = {"/ExcluirTarefa"})
-public class ExcluirTarefa extends HttpServlet {
+@WebServlet(name = "ConcluirTarefa", urlPatterns = {"/ConcluirTarefa"})
+public class ConcluirTarefa extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -78,7 +78,7 @@ public class ExcluirTarefa extends HttpServlet {
             throws ServletException, IOException {
         
         
-        System.out.println(" BOTÃO DE EXCLUIR PRESSIONADO ------------- ");
+        System.out.println(" BOTÃO DE CONCLUIR PRESSIONADO ------------- ");
         CaixaDeFerramentas cdf = new CaixaDeFerramentas();
         DAOUsuario daoUsuario = new DAOUsuario();
         DAOTarefa daoTarefa = new DAOTarefa();
@@ -89,8 +89,10 @@ public class ExcluirTarefa extends HttpServlet {
             int idTarefa = Integer.parseInt(idTarefaStr);
             Entidades.Tarefa tarefa = daoTarefa.obter(idTarefa);
             if (tarefa != null) {
-                daoTarefa.remover(tarefa);
-                System.out.println("Tarefa excluida com sucesso.");
+                //Mudar o status da tarefa para concluida
+                tarefa.setConcluidaTarefa(Boolean.TRUE);
+                daoTarefa.atualizar(tarefa);
+                System.out.println("Tarefa concluida com sucesso.");
             }else {
                 System.out.println("Entidade Tarefa " + idTarefa + " não encontrada.");
             }
