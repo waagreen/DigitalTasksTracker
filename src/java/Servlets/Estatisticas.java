@@ -60,7 +60,7 @@ public class Estatisticas extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAOTarefa daoTarefa = new DAOTarefa();
-        List<Entidades.Tarefa> estatisticas = daoTarefa.tempoGastoPorTag();
+        List<Object[]> estatisticas = daoTarefa.tempoGastoPorTag();
 
         request.setAttribute("estatisticas", estatisticas);
         request.getRequestDispatcher("Estatisticas.jsp").forward(request, response);

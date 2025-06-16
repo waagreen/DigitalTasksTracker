@@ -59,6 +59,26 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     </head>
     <body class="bg-light">
+        <header class="bg-light p-2 mb-2 d-flex justify-content-between align-items-center">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    <h1 class="text-primary p-2">Minuet</h1>
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="mainPage.jsp">Tarefas</a></li>
+                            <li class="nav-item"><a class="nav-link" href="notasPage.jsp">Notas</a></li>
+                            <li class="nav-item"><a class="nav-link" href="Estatistica.jsp">Estatísticas</a></li>
+                            <li class="nav-item"><a class="nav-link" href="Historico.jsp">Histórico</a></li>
+                            <li class="nav-item"><a class="nav-link" href="Perfil.jsp">Perfil</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div>
+                <a href="Logout" class="btn btn-danger">Logout</a>
+            </div>
+        </header>
+
 
         <div class="container py-5">
             <h1 class="mb-4">Minhas Notas</h1>
