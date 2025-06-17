@@ -26,10 +26,9 @@ nb-configuration.xml
 hs_err_pid*
 replay_pid*
 
-src/conf/persistence.xml
-src/conf/persistence.xml
 /src/conf
 /nbproject
 /dist
 /build
 nbproject/private
+nbproject
