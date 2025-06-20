@@ -30,5 +30,13 @@ replay_pid*
 /nbproject
 /dist
 /build
+<<<<<<< Updated upstream
 nbproject/private
 nbproject
+=======
+/build/generated-sources
+/build/generated-sources/ap-source-output
+/build/generated-sources/ap-source-output/Entidades
+>>>>>>> Stashed changes
+*.class
+*.xml
