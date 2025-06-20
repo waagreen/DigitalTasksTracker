@@ -38,6 +38,22 @@ public class CaixaDeFerramentas {
             return null;// se algo estiver errado, retorne null
         }
     }
+    
+    public Boolean converteDeStringParaBool(String s) {
+        try {
+            return Boolean.parseBoolean(s);//converte
+        } catch (Exception e) {
+            return null;// se algo estiver errado, retorne null
+        }
+    }
+    
+    public Float converteDeStringParaFloat(String s) {
+        try {
+            return Float.parseFloat(s);//converte
+        } catch (Exception e) {
+            return Float.NaN;// se algo estiver errado, retorne Not a Number
+        }
+    }
 
     /* métodos para Persistência  
      
