@@ -14,6 +14,7 @@ public class Tarefa {
     private String tituloTarefa;
     private String descricaoTarefa;
     private String dataConclusaoTarefa;
+    private float tempoGasto;
 
     public Tarefa() {
     }
@@ -48,5 +49,15 @@ public class Tarefa {
 
     public void setDataConclusaoTarefa(String dataConclusaoTarefa) {
         this.dataConclusaoTarefa = dataConclusaoTarefa;
+    }
+    
+    public void setTempoGasto(float tempoGasto)
+    {
+        this.tempoGasto = tempoGasto;
+    }
+    
+    public float getTempoGasto()
+    {
+        return this.tempoGasto;
     }
 }

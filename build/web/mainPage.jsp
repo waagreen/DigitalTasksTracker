@@ -147,7 +147,73 @@
 
             <!-- Script de Timer -->
             <script>
+                // Variável global para armazenar os intervalos dos timers
+                var timerIntervals = {};
+                var timerSeconds = {}; // Armazena os segundos decorridos para cada tarefa
 
+                function startTimer(taskId)
+                {
+                    // Envia requisição para iniciar o timer no servidor
+                    $.post('TimerControl',
+                    {
+                        action: 'start',
+                        taskId: taskId
+                    },
+                    function(response)
+                    {
+                        console.log("Timer started for task: " + taskId);
+
+                        // Inicia o timer visual no cliente
+                        if (timerIntervals[taskId]) {
+                            clearInterval(timerIntervals[taskId]);
+                        }
+
+                        timerSeconds[taskId] = 0;
+                        updateTimerDisplay(taskId); // Mostra 00:00:00 imediatamente
+
+                        timerIntervals[taskId] = setInterval(function() {
+                            timerSeconds[taskId]++;
+                            updateTimerDisplay(taskId);
+                        }, 1000);
+                    }, 'json');
+                }
+
+                function stopTimer(taskId)
+                {
+                    // Envia requisição para parar o timer no servidor
+                    $.post('TimerControl',
+                    {
+                        action: 'stop',
+                        taskId: taskId
+                    }, 
+                    function(response)
+                    {
+                        console.log("Timer stopped for task: " + taskId);
+
+                        // Para o timer visual no cliente
+                        if (timerIntervals[taskId]) {
+                            clearInterval(timerIntervals[taskId]);
+                            delete timerIntervals[taskId];
+                            delete timerSeconds[taskId];
+                        }
+                    }, 'json');
+                }
+
+                function updateTimerDisplay(taskId)
+                {
+                    let seconds = timerSeconds[taskId] || 0;
+                    let hours = Math.floor(seconds / 3600);
+                    let minutes = Math.floor((seconds % 3600) / 60);
+                    let secs = seconds % 60;
+
+                    // Formata para HH:MM:SS
+                    let timeString = 
+                        (hours < 10 ? "0" + hours : hours) + ":" +
+                        (minutes < 10 ? "0" + minutes : minutes) + ":" +
+                        (secs < 10 ? "0" + secs : secs);
+
+                    document.getElementById('timer-' + taskId).textContent = timeString;
+                }
             </script>
         </body>
     </html>
