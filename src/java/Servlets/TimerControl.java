@@ -18,9 +18,7 @@ import javax.servlet.http.HttpSession;
 public class TimerControl extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
-        
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         
@@ -30,41 +28,40 @@ public class TimerControl extends HttpServlet {
         
         // Obtém ou cria o mapa de timers na sessão
         Map<String, TimerData> timers = (Map<String, TimerData>) session.getAttribute("taskTimers");
-        if (timers == null)
-        {
+        if (timers == null) {
             timers = new HashMap<>();
             session.setAttribute("taskTimers", timers);
         }
         
         DAOTarefa daoTarefa = new DAOTarefa();
         
-        try (PrintWriter out = response.getWriter())
-        {
-            if ("start".equals(action))
-            {
+        try (PrintWriter out = response.getWriter()) {
+            if ("start".equals(action)) {
+                // Verifica se já existe tempo acumulado no banco de dados
+                Tarefa tarefa = daoTarefa.obter(Integer.parseInt(taskId));
+                float tempoAcumulado = tarefa.getTempoGasto() != null ? tarefa.getTempoGasto() : 0;
+                
                 // Inicia o timer para a tarefa
                 TimerData timerData = new TimerData();
                 timerData.setStartTime(new Date());
+                timerData.setTempoAcumulado(tempoAcumulado);
                 timers.put(taskId, timerData);
                 
-                out.print("{\"status\": \"started\", \"taskId\": \"" + taskId + "\"}");
+                out.print("{\"status\": \"started\", \"taskId\": \"" + taskId + "\", \"tempoAcumulado\": " + tempoAcumulado + "}");
             } 
-            else if ("stop".equals(action))
-            {
+            else if ("stop".equals(action)) {
                 // Para o timer e calcula o tempo decorrido
                 TimerData timerData = timers.get(taskId);
-                if (timerData != null)
-                {
+                if (timerData != null) {
                     timerData.setEndTime(new Date());
                     long elapsedTime = timerData.getElapsedTime();
                     
                     // Atualiza o tempo total na tarefa no banco de dados
                     Tarefa tarefa = daoTarefa.obter(Integer.parseInt(taskId));
-                    if (tarefa != null)
-                    {
-                        float currentTime = tarefa.getTempoGasto() != null ? tarefa.getTempoGasto() : 0;
-                        tarefa.setTempoGasto(currentTime + (elapsedTime / 3600.0f)); // Convertendo segundos para horas
-                        daoTarefa.atualizar(tarefa); // Usando alterar em vez de inserir
+                    if (tarefa != null) {
+                        float horasDecorridas = (elapsedTime / 3600000.0f);
+                        tarefa.setTempoGasto(timerData.getTempoAcumulado() + horasDecorridas);
+                        daoTarefa.atualizar(tarefa);
                     }
                     
                     // Remove o timer da sessão
@@ -72,41 +69,53 @@ public class TimerControl extends HttpServlet {
                     
                     out.print("{\"status\": \"stopped\", \"taskId\": \"" + taskId + "\", \"elapsed\": " + elapsedTime + "}");
                 } 
-                else
-                {
+                else {
                     out.print("{\"status\": \"error\", \"message\": \"Timer não encontrado\"}");
                 }
             }
-            else
-            {
+            else if ("get".equals(action)) {
+                // Retorna o tempo acumulado da tarefa
+                Tarefa tarefa = daoTarefa.obter(Integer.parseInt(taskId));
+                if (tarefa != null) {
+                    float tempoAcumulado = tarefa.getTempoGasto() != null ? tarefa.getTempoGasto() : 0;
+                    out.print("{\"status\": \"success\", \"taskId\": \"" + taskId + "\", \"tempoAcumulado\": " + tempoAcumulado + "}");
+                } else {
+                    out.print("{\"status\": \"error\", \"message\": \"Tarefa não encontrada\"}");
+                }
+            }
+            else {
                 out.print("{\"status\": \"error\", \"message\": \"Ação inválida\"}");
             }
         }
     }
 
     // Classe auxiliar para armazenar os dados do timer
-    private static class TimerData
-    {
+    private static class TimerData {
         private Date startTime;
         private Date endTime;
+        private float tempoAcumulado; // Tempo acumulado em horas antes deste timer
         
-        public long getElapsedTime()
-        {
-            if (startTime != null && endTime != null)
-            {
-                return (endTime.getTime() - startTime.getTime()) / 1000; // Retorna em segundos
+        public long getElapsedTime() {
+            if (startTime != null && endTime != null) {
+                return endTime.getTime() - startTime.getTime(); // Retorna em milissegundos
             }
             return 0;
         }
 
-        public void setStartTime(Date startTime)
-        {
+        public void setStartTime(Date startTime) {
             this.startTime = startTime;
         }
 
-        public void setEndTime(Date endTime)
-        {
+        public void setEndTime(Date endTime) {
             this.endTime = endTime;
+        }
+        
+        public float getTempoAcumulado() {
+            return tempoAcumulado;
+        }
+        
+        public void setTempoAcumulado(float tempoAcumulado) {
+            this.tempoAcumulado = tempoAcumulado;
         }
     }
 }

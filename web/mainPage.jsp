@@ -151,56 +151,67 @@
                 var timerIntervals = {};
                 var timerSeconds = {}; // Armazena os segundos decorridos para cada tarefa
 
-                function startTimer(taskId)
-                {
-                    // Envia requisição para iniciar o timer no servidor
+                function startTimer(taskId) {
+                    // Primeiro obtém o tempo acumulado do servidor
                     $.post('TimerControl',
                     {
-                        action: 'start',
+                        action: 'get',
                         taskId: taskId
                     },
-                    function(response)
-                    {
-                        console.log("Timer started for task: " + taskId);
+                    function(response) {
+                        if (response.status === 'success') {
+                            // Converte horas acumuladas para segundos
+                            let horasAcumuladas = response.tempoAcumulado || 0;
+                            let segundosAcumulados = Math.round(horasAcumuladas * 3600);
 
-                        // Inicia o timer visual no cliente
-                        if (timerIntervals[taskId]) {
-                            clearInterval(timerIntervals[taskId]);
+                            // Inicia o timer no servidor
+                            $.post('TimerControl',
+                            {
+                                action: 'start',
+                                taskId: taskId
+                            },
+                            function(startResponse) {
+                                console.log("Timer started for task: " + taskId);
+
+                                // Inicia o timer visual no cliente
+                                if (timerIntervals[taskId]) {
+                                    clearInterval(timerIntervals[taskId]);
+                                }
+
+                                timerSeconds[taskId] = segundosAcumulados;
+                                updateTimerDisplay(taskId); // Mostra o tempo acumulado imediatamente
+
+                                timerIntervals[taskId] = setInterval(function() {
+                                    timerSeconds[taskId]++;
+                                    updateTimerDisplay(taskId);
+                                }, 1000);
+                            }, 'json');
                         }
-
-                        timerSeconds[taskId] = 0;
-                        updateTimerDisplay(taskId); // Mostra 00:00:00 imediatamente
-
-                        timerIntervals[taskId] = setInterval(function() {
-                            timerSeconds[taskId]++;
-                            updateTimerDisplay(taskId);
-                        }, 1000);
                     }, 'json');
                 }
 
-                function stopTimer(taskId)
-                {
+                function stopTimer(taskId) {
                     // Envia requisição para parar o timer no servidor
                     $.post('TimerControl',
                     {
                         action: 'stop',
                         taskId: taskId
                     }, 
-                    function(response)
-                    {
+                    function(response) {
                         console.log("Timer stopped for task: " + taskId);
 
                         // Para o timer visual no cliente
                         if (timerIntervals[taskId]) {
                             clearInterval(timerIntervals[taskId]);
                             delete timerIntervals[taskId];
-                            delete timerSeconds[taskId];
+
+                            // Mantém os segundos para mostrar o tempo final
+                            updateTimerDisplay(taskId);
                         }
                     }, 'json');
                 }
 
-                function updateTimerDisplay(taskId)
-                {
+                function updateTimerDisplay(taskId) {
                     let seconds = timerSeconds[taskId] || 0;
                     let hours = Math.floor(seconds / 3600);
                     let minutes = Math.floor((seconds % 3600) / 60);
@@ -214,6 +225,26 @@
 
                     document.getElementById('timer-' + taskId).textContent = timeString;
                 }
+
+                // Ao carregar a página, atualiza todos os timers com o tempo acumulado
+                $(document).ready(function() {
+                    $('[id^="timer-"]').each(function() {
+                        let taskId = this.id.split('-')[1];
+                        $.post('TimerControl',
+                        {
+                            action: 'get',
+                            taskId: taskId
+                        },
+                        function(response) {
+                            if (response.status === 'success') {
+                                let horasAcumuladas = response.tempoAcumulado || 0;
+                                let segundosAcumulados = Math.round(horasAcumuladas * 3600);
+                                timerSeconds[taskId] = segundosAcumulados;
+                                updateTimerDisplay(taskId);
+                            }
+                        }, 'json');
+                    });
+                });
             </script>
         </body>
     </html>
