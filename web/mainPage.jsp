@@ -76,8 +76,8 @@
                                     <!-- Timer -->
                                     <div>
                                         <span id="timer-${tarefa.idTarefa}">00:00:00</span><br>
-                                        <button class="btn btn-sm btn-outline-primary" onclick="startTimer(${tarefa.idTarefa})">Iniciar Timer</button>
-                                        <button class="btn btn-sm btn-outline-secondary" onclick="stopTimer(${tarefa.idTarefa})">Parar Timer</button>
+                                        <button id="start-${tarefa.idTarefa}" class="btn btn-sm btn-outline-primary" onclick="startTimer(${tarefa.idTarefa})">Iniciar Timer</button>
+                                        <button id="stop-${tarefa.idTarefa}" class="btn btn-sm btn-outline-secondary" onclick="stopTimer(${tarefa.idTarefa})" disabled>Parar Timer</button>
                                     </div>
 
                                     <!-- Tags -->
@@ -150,16 +150,25 @@
                 // Variável global para armazenar os intervalos dos timers
                 var timerIntervals = {};
                 var timerSeconds = {}; // Armazena os segundos decorridos para cada tarefa
+                var activeTimers = {}; // Armazena o estado dos timers (ativo/inativo)
 
-                function startTimer(taskId) {
+                function startTimer(taskId)
+                {
+                    // Desabilita o botão de start imediatamente
+                    $('[onclick="startTimer(' + taskId + ')"]').prop('disabled', true);
+                    // Habilita o botão de stop
+                    $('[onclick="stopTimer(' + taskId + ')"]').prop('disabled', false);
+
                     // Primeiro obtém o tempo acumulado do servidor
                     $.post('TimerControl',
                     {
                         action: 'get',
                         taskId: taskId
                     },
-                    function(response) {
-                        if (response.status === 'success') {
+                    function(response)
+                    {
+                        if (response.status === 'success')
+                        {
                             // Converte horas acumuladas para segundos
                             let horasAcumuladas = response.tempoAcumulado || 0;
                             let segundosAcumulados = Math.round(horasAcumuladas * 3600);
@@ -170,18 +179,22 @@
                                 action: 'start',
                                 taskId: taskId
                             },
-                            function(startResponse) {
+                            function(startResponse)
+                            {
                                 console.log("Timer started for task: " + taskId);
+                                activeTimers[taskId] = true;
 
                                 // Inicia o timer visual no cliente
-                                if (timerIntervals[taskId]) {
+                                if (timerIntervals[taskId])
+                                {
                                     clearInterval(timerIntervals[taskId]);
                                 }
 
                                 timerSeconds[taskId] = segundosAcumulados;
                                 updateTimerDisplay(taskId); // Mostra o tempo acumulado imediatamente
 
-                                timerIntervals[taskId] = setInterval(function() {
+                                timerIntervals[taskId] = setInterval(function()
+                                {
                                     timerSeconds[taskId]++;
                                     updateTimerDisplay(taskId);
                                 }, 1000);
@@ -190,18 +203,27 @@
                     }, 'json');
                 }
 
-                function stopTimer(taskId) {
+                function stopTimer(taskId)
+                {
+                    // Habilita o botão de start imediatamente
+                    $('[onclick="startTimer(' + taskId + ')"]').prop('disabled', false);
+                    // Desabilita o botão de stop
+                    $('[onclick="stopTimer(' + taskId + ')"]').prop('disabled', true);
+
                     // Envia requisição para parar o timer no servidor
                     $.post('TimerControl',
                     {
                         action: 'stop',
                         taskId: taskId
                     }, 
-                    function(response) {
+                    function(response)
+                    {
                         console.log("Timer stopped for task: " + taskId);
+                        activeTimers[taskId] = false;
 
                         // Para o timer visual no cliente
-                        if (timerIntervals[taskId]) {
+                        if (timerIntervals[taskId])
+                        {
                             clearInterval(timerIntervals[taskId]);
                             delete timerIntervals[taskId];
 
@@ -211,7 +233,8 @@
                     }, 'json');
                 }
 
-                function updateTimerDisplay(taskId) {
+                function updateTimerDisplay(taskId)
+                {
                     let seconds = timerSeconds[taskId] || 0;
                     let hours = Math.floor(seconds / 3600);
                     let minutes = Math.floor((seconds % 3600) / 60);
@@ -227,20 +250,36 @@
                 }
 
                 // Ao carregar a página, atualiza todos os timers com o tempo acumulado
-                $(document).ready(function() {
-                    $('[id^="timer-"]').each(function() {
+                $(document).ready(function()
+                {
+                    $('[id^="timer-"]').each(function()
+                    {
                         let taskId = this.id.split('-')[1];
                         $.post('TimerControl',
                         {
                             action: 'get',
                             taskId: taskId
                         },
-                        function(response) {
-                            if (response.status === 'success') {
+                        function(response)
+                        {
+                            if (response.status === 'success')
+                            {
                                 let horasAcumuladas = response.tempoAcumulado || 0;
                                 let segundosAcumulados = Math.round(horasAcumuladas * 3600);
                                 timerSeconds[taskId] = segundosAcumulados;
                                 updateTimerDisplay(taskId);
+
+                                // Verifica se há um timer ativo para esta tarefa
+                                if (activeTimers[taskId])
+                                {
+                                    $('[onclick="startTimer(' + taskId + ')"]').prop('disabled', true);
+                                    $('[onclick="stopTimer(' + taskId + ')"]').prop('disabled', false);
+                                } 
+                                else
+                                {
+                                    $('[onclick="startTimer(' + taskId + ')"]').prop('disabled', false);
+                                    $('[onclick="stopTimer(' + taskId + ')"]').prop('disabled', true);
+                                }
                             }
                         }, 'json');
                     });
