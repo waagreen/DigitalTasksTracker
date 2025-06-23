@@ -55,7 +55,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Minhas Notas</title>
+        <title>Minhas Notas - Sistema To-Do</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     </head>
     <body class="bg-light">
@@ -67,6 +67,7 @@
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item"><a class="nav-link" href="mainPage.jsp">Tarefas</a></li>
                             <li class="nav-item"><a class="nav-link" href="notasPage.jsp">Notas</a></li>
+                            <li class="nav-item"><a class="nav-link" href="listasPage.jsp">Listas</a></li>
                             <li class="nav-item"><a class="nav-link" href="Estatistica.jsp">Estatísticas</a></li>
                             <li class="nav-item"><a class="nav-link" href="Historico.jsp">Histórico</a></li>
                             <li class="nav-item"><a class="nav-link" href="Perfil.jsp">Perfil</a></li>
@@ -74,9 +75,6 @@
                     </div>
                 </div>
             </nav>
-            <div>
-                <a href="Logout" class="btn btn-danger">Logout</a>
-            </div>
         </header>
 
 
@@ -108,12 +106,12 @@
             <div class="row">
                 <% for (Nota nota : listaNotas) {%>
                 <div class="col-md-4">
-                    <div class="card mb-4">
+                    <div class="card mb-4 hover-grow">
                         <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
                             <strong><%= nota.getTituloNota()%></strong>
                             <small class="text-light">ID: <%= nota.getIdNota()%></small>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body hover-grow">
                             <p class="card-text"><%= nota.getConteudoNota()%></p>
                         </div>
                         <div class="card-footer d-flex justify-content-between">
