@@ -147,34 +147,6 @@
 
             <!-- Script de Timer -->
             <script>
-<<<<<<< HEAD
-                const timers = {};
-
-                function startTimer(id) {
-                if (timers[id] && timers[id].interval) return;
-
-                if (!timers[id]) {
-                timers[id] = { seconds: 0, interval: null };
-            }
-
-                timers[id].interval = setInterval(() => {
-                timers[id].seconds++;
-
-                const horas = String(Math.floor(timers[id].seconds / 3600)).padStart(2, '0');
-                const minutos = String(Math.floor((timers[id].seconds % 3600) / 60)).padStart(2, '0');
-                const segundos = String(timers[id].seconds % 60).padStart(2, '0');
-
-                document.getElementById(`timer-${id}`).textContent = `${horas}:${minutos}:${segundos}`;
-            }, 1000);
-            }
-
-                function stopTimer(id) {
-                if (timers[id] && timers[id].interval) {
-                clearInterval(timers[id].interval);
-                timers[id].interval = null;
-            }
-            }
-=======
                 // Variável global para armazenar os intervalos dos timers
                 var timerIntervals = {};
                 var timerSeconds = {}; // Armazena os segundos decorridos para cada tarefa
@@ -312,7 +284,6 @@
                         }, 'json');
                     });
                 });
->>>>>>> 37b7396946ebb5e566f3e3695f00900af5aa3a10
             </script>
         </body>
     </html>
