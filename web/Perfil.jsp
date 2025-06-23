@@ -9,23 +9,25 @@
     <link rel="stylesheet" href="css/estilo.css">
     <link rel="stylesheet" href="css/pagesCSS.css">
 </head>
+
 <body>
+    
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <h1 class="text-primary p-2">Minuet</h1>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="mainPage.jsp">Tarefas</a></li>
-                <li class="nav-item"><a class="nav-link" href="notasPage.jsp">Notas</a></li>
-                <li class="nav-item"><a class="nav-link" href="listasPage.jsp">Listas</a></li>
-                <li class="nav-item"><a class="nav-link" href="Estatistica.jsp">Estatísticas</a></li>
-                <li class="nav-item"><a class="nav-link" href="Historico.jsp">Histórico</a></li>
-                <li class="nav-item"><a class="nav-link" href="Perfil.jsp">Perfil</a></li>
-            </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <h1 class="text-primary p-2">Minuet</h1>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="mainPage.jsp">Tarefas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="notasPage.jsp">Notas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="listasPage.jsp">Listas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Estatistica.jsp">Estatísticas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Historico.jsp">Histórico</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Perfil.jsp">Perfil</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 <!-- Conteudo perfil -->
 <div class="container mt-4" style="max-width: 600px;">

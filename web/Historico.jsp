@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/pagesCSS.css">
 </head>
 <body>
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <h1 class="text-primary p-2">Minuet</h1>
