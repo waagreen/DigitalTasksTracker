@@ -47,6 +47,7 @@
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item"><a class="nav-link" href="mainPage.jsp">Tarefas</a></li>
                                 <li class="nav-item"><a class="nav-link" href="notasPage.jsp">Notas</a></li>
+                                <li class="nav-item"><a class="nav-link" href="listasPage.jsp">Listas</a></li>
                                 <li class="nav-item"><a class="nav-link" href="Estatistica.jsp">Estatísticas</a></li>
                                 <li class="nav-item"><a class="nav-link" href="Historico.jsp">Histórico</a></li>
                                 <li class="nav-item"><a class="nav-link" href="Perfil.jsp">Perfil</a></li>
@@ -56,7 +57,6 @@
                 </nav>
                 <div>
                     <button class="btn btn-success" data-toggle="modal" data-target="#novaTarefaModal">+ Nova Tarefa</button>
-                    <a href="Logout" class="btn btn-danger">Logout</a>
                 </div>
             </header>
 
@@ -65,7 +65,7 @@
                 <div class="row row-cols-1 row-cols-md-3">
                     <c:forEach var="tarefa" items="<%=tarefas%>">
                         <div class="col mb-4">
-                            <div class="card h-100">
+                            <div class="card h-100 hover-grow">
                                 <div class="card-body">
                                     <h5 class="card-title">${tarefa.tituloTarefa}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">
@@ -147,7 +147,32 @@
 
             <!-- Script de Timer -->
             <script>
+                const timers = {};
 
+                function startTimer(id) {
+                if (timers[id] && timers[id].interval) return;
+
+                if (!timers[id]) {
+                timers[id] = { seconds: 0, interval: null };
+            }
+
+                timers[id].interval = setInterval(() => {
+                timers[id].seconds++;
+
+                const horas = String(Math.floor(timers[id].seconds / 3600)).padStart(2, '0');
+                const minutos = String(Math.floor((timers[id].seconds % 3600) / 60)).padStart(2, '0');
+                const segundos = String(timers[id].seconds % 60).padStart(2, '0');
+
+                document.getElementById(`timer-${id}`).textContent = `${horas}:${minutos}:${segundos}`;
+            }, 1000);
+            }
+
+                function stopTimer(id) {
+                if (timers[id] && timers[id].interval) {
+                clearInterval(timers[id].interval);
+                timers[id].interval = null;
+            }
+            }
             </script>
         </body>
     </html>
