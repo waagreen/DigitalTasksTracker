@@ -15,7 +15,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="mainPage.jsp">Tarefas</a></li>
                 <li class="nav-item"><a class="nav-link" href="notasPage.jsp">Notas</a></li>
-                <li class="nav-item"><a class="nav-link" href="listasPage.html">Listas</a></li>
+                <li class="nav-item"><a class="nav-link" href="listasPage.jsp">Listas</a></li>
                 <li class="nav-item"><a class="nav-link" href="Estatistica.jsp">Estatísticas</a></li>
                 <li class="nav-item"><a class="nav-link" href="Historico.jsp">Histórico</a></li>
                 <li class="nav-item"><a class="nav-link" href="Perfil.jsp">Perfil</a></li>
