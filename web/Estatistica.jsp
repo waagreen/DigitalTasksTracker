@@ -12,26 +12,52 @@
     <head>
         <meta charset="UTF-8">
         <title>Estatísticas de Tempo</title>
-        s<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     </head>
     
     <body class="bg-light">
         <div class="container mt-5">
             <header class="bg-light p-2 mb-2 d-flex justify-content-between align-items-center">
+                <!-- Navbar -->
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container">
-                        <h1 class="text-primary p-2">Minuet</h1>
-                        <div class="collapse navbar-collapse">
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item"><a class="nav-link" href="mainPage.jsp">Tarefas</a></li>
-                                <li class="nav-item"><a class="nav-link" href="notasPage.jsp">Notas</a></li>
-                                <li class="nav-item"><a class="nav-link" href="listasPage.jsp">Listas</a></li>
-                                <li class="nav-item"><a class="nav-link" href="Estatistica.jsp">Estatísticas</a></li>
-                                <li class="nav-item"><a class="nav-link" href="Historico.jsp">Histórico</a></li>
-                                <li class="nav-item"><a class="nav-link" href="Perfil.jsp">Perfil</a></li>
-                            </ul>
-                        </div>
+                <div class="container">
+                    <h1 class="text-primary p-2">Minuet</h1>
+                    <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item hover-grow">
+                        <a class="nav-link d-flex align-items-center gap-1" href="mainPage.jsp">
+                            <i class="bi bi-clipboard"></i> Tarefas
+                        </a>
+                        </li>
+                        <li class="nav-item hover-grow">
+                        <a class="nav-link d-flex align-items-center gap-1" href="notasPage.jsp">
+                            <i class="bi bi-sticky"></i> Notas
+                        </a>
+                        </li>
+                        <li class="nav-item hover-grow">
+                        <a class="nav-link d-flex align-items-center gap-1" href="listasPage.jsp">
+                            <i class="bi bi-list"></i> Listas
+                        </a>
+                        </li>
+                        <li class="nav-item hover-grow">
+                        <a class="nav-link d-flex align-items-center gap-1" href="Estatistica.jsp">
+                            <i class="bi bi-graph-up-arrow"></i> Estatísticas
+                        </a>
+                        </li>
+                        <li class="nav-item hover-grow">
+                        <a class="nav-link d-flex align-items-center gap-1" href="Historico.jsp">
+                            <i class="bi bi-clock-history"></i> Histórico
+                        </a>
+                        </li>
+                        <li class="nav-item hover-grow">
+                        <a class="nav-link d-flex align-items-center gap-1" href="Perfil.jsp">
+                            <i class="bi bi-person"></i> Perfil
+                        </a>
+                        </li>
+                    </ul>
                     </div>
+                </div>
                 </nav>
             </header>
             <h1 class="text-center mb-4">Estatísticas</h1>

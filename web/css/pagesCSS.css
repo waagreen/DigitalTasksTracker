@@ -165,3 +165,46 @@ body {
 .descricao {
     margin-top: 5px;
 }
+
+.navbar .nav-link i {
+  transition: transform 0.5s ease, color 0.2s ease;
+  font-size: 1.2rem;
+}
+
+.navbar .nav-link:hover i {
+  transform: scale(1.2);
+  color: #0d6efd;
+}
+
+.navbar .nav-link.active i {
+  font-weight: bold;
+  color: #0d6efd;
+}
+
+/* Preenche o ícone ao passar o mouse ou quando ativo */
+.navbar .nav-item a.nav-link i::before {
+    transition: 0.1s ease-in-out;
+}
+
+/* Ícone preenchido ao hover */
+.navbar .nav-item a.nav-link:hover i.bi-clipboard::before {
+    content: "\F71D"; /* bi-clipboard-fill */
+}
+.navbar .nav-item a.nav-link:hover i.bi-sticky::before {
+    content: "\F58C"; /* bi-sticky-fill */
+}
+.navbar .nav-item a.nav-link:hover i.bi-list::before {
+    content: "\F478"; /* bi-list-ul */
+}
+.navbar .nav-item a.nav-link:hover i.bi-calendar::before {
+    content: "\F1E9"; /* bi-calendar-fill */
+}
+.navbar .nav-item a.nav-link:hover i.bi-graph-up::before {
+    content: "\F673"; /* bi-graph-up-arrow */
+}
+.navbar .nav-item a.nav-link:hover i.bi-clock-history::before {
+    content: "\F291"; /* bi-clock-fill */
+}
+.navbar .nav-item a.nav-link:hover i.bi-person::before {
+    content: "\F4DA"; /* bi-person-fill */
+}
