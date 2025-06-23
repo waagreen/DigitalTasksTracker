@@ -56,7 +56,6 @@
                 </nav>
                 <div>
                     <button class="btn btn-success" data-toggle="modal" data-target="#novaTarefaModal">+ Nova Tarefa</button>
-                    <a href="Logout" class="btn btn-danger">Logout</a>
                 </div>
             </header>
 
