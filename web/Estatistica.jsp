@@ -25,6 +25,7 @@
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item"><a class="nav-link" href="mainPage.jsp">Tarefas</a></li>
                                 <li class="nav-item"><a class="nav-link" href="notasPage.jsp">Notas</a></li>
+                                <li class="nav-item"><a class="nav-link" href="listasPage.jsp">Listas</a></li>
                                 <li class="nav-item"><a class="nav-link" href="Estatistica.jsp">Estatísticas</a></li>
                                 <li class="nav-item"><a class="nav-link" href="Historico.jsp">Histórico</a></li>
                                 <li class="nav-item"><a class="nav-link" href="Perfil.jsp">Perfil</a></li>
@@ -32,9 +33,6 @@
                         </div>
                     </div>
                 </nav>
-                <div>
-                    <a href="Logout" class="btn btn-danger">Logout</a>
-                </div>
             </header>
             <h1 class="text-center mb-4">Estatísticas</h1>
 
@@ -58,5 +56,113 @@
             <a href="mainPage.jsp" class="btn btn-primary">Voltar</a>
         </div>
 
-    </body>
+        <div class="container mt-4">
+            <h2>Desempenho</h2>
+            <!-- Botões -->
+            <div class="d-flex justify-content-center mt-3">
+                <button class="btn btn-outline-primary me-2" onclick="renderChart('semana', event)">Semana</button>
+                <button class="btn btn-outline-primary" onclick="renderChart('mes', event)">Mês</button>
+            </div>
+
+            <!-- Canvas -->
+            <canvas id="graficoEstatisticas" width="400" height="200"></canvas>
+        </div>
+            <!-- Scripts -->
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                const ctx = document.getElementById('graficoEstatisticas').getContext('2d');
+
+                const dadosSemana = {
+                    labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                    tarefas: [3, 5, 4, 6, 2, 1, 4],
+                    xp: [50, 80, 65, 90, 30, 10, 60]
+                };
+
+                const dadosMes = {
+                    labels: Array.from({ length: 30 }, (_, i) => `Dia ${i + 1}`),
+                    tarefas: Array.from({ length: 30 }, () => Math.floor(Math.random() * 6) + 1),
+                    xp: Array.from({ length: 30 }, () => Math.floor(Math.random() * 100) + 10)
+                };
+
+                let grafico;
+
+                function renderChart(tipo, event) {
+                    if (event) event.preventDefault();
+
+                    const dados = tipo === 'semana' ? dadosSemana : dadosMes;
+
+                    if (grafico) grafico.destroy();
+
+                    grafico = new Chart(ctx, {
+                        data: {
+                            labels: dados.labels,
+                            datasets: [
+                                {
+                                    label: 'Tarefas Concluídas',
+                                    data: dados.tarefas,
+                                    type: 'bar',
+                                    backgroundColor: 'rgba(0, 123, 255, 0.7)',
+                                    borderRadius: 5,
+                                    yAxisID: 'tarefasY'
+                                },
+                                {
+                                    label: 'XP Ganha',
+                                    data: dados.xp,
+                                    type: 'line',
+                                    borderColor: 'orange',
+                                    backgroundColor: 'transparent',
+                                    yAxisID: 'xpY',
+                                    pointRadius: 6,
+                                    pointHoverRadius: 8,
+                                    tension: 0.4
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            interaction: {
+                                mode: 'index',
+                                intersect: false
+                            },
+                            plugins: {
+                                legend: { position: 'bottom' },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const datasetLabel = context.dataset.label;
+                                            const value = context.parsed.y;
+                                            return datasetLabel + ': ' + (datasetLabel.includes('Tarefa') ? value + ' tarefas' : value + ' XP');
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                tarefasY: {
+                                    type: 'linear',
+                                    position: 'left',
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Tarefas Concluídas'
+                                    },
+                                    ticks: {
+                                        stepSize: 1
+                                    }
+                                },
+                                xpY: {
+                                    type: 'linear',
+                                    position: 'right',
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'XP Ganha'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                renderChart('semana');
+            </script>
 </html>
