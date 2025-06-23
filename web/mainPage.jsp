@@ -21,11 +21,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </head>
 
-    <!DOCTYPE html>
-    <html lang="pt-br">
-        <head>
-        </head>
-
         <%
             Cookie[] cookie = request.getCookies();
             DAOTarefa daoTarefa = new DAOTarefa();
