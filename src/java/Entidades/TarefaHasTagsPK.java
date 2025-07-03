@@ -20,12 +20,12 @@ public class TarefaHasTagsPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idTarefa")
+    @Column(name = "idTarefa", nullable = false)
     private int idTarefa;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "nomeTag")
+    @Column(name = "nomeTag", nullable = false, length = 45)
     private String nomeTag;
 
     public TarefaHasTagsPK() {

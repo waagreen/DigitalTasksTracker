@@ -37,39 +37,40 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Tarefa.findByIdTarefa", query = "SELECT t FROM Tarefa t WHERE t.idTarefa = :idTarefa"),
     @NamedQuery(name = "Tarefa.findByTituloTarefa", query = "SELECT t FROM Tarefa t WHERE t.tituloTarefa = :tituloTarefa"),
     @NamedQuery(name = "Tarefa.findByDataFinalizarTarefa", query = "SELECT t FROM Tarefa t WHERE t.dataFinalizarTarefa = :dataFinalizarTarefa"),
-    @NamedQuery(name = "Tarefa.findByConcluidaTarefa", query = "SELECT t FROM Tarefa t WHERE t.concluidaTarefa = :concluidaTarefa")})
+    @NamedQuery(name = "Tarefa.findByConcluidaTarefa", query = "SELECT t FROM Tarefa t WHERE t.concluidaTarefa = :concluidaTarefa"),
+    @NamedQuery(name = "Tarefa.findByTempoGasto", query = "SELECT t FROM Tarefa t WHERE t.tempoGasto = :tempoGasto"),
+    @NamedQuery(name = "Tarefa.findByTagTarefa", query = "SELECT t FROM Tarefa t WHERE t.tagTarefa = :tagTarefa")})
 public class Tarefa implements Serializable {
-
-    @Size(max = 45)
-    @Column(name = "tituloTarefa")
-    private String tituloTarefa;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Size(min = 1, max = 65535)
-    @Column(name = "descricaoTarefa")
-    private String descricaoTarefa;
-    @Size(max = 45)
-    @Column(name = "tagTarefa")
-    private String tagTarefa;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "tempoGasto")
-    private Float tempoGasto;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tarefa")
-    private List<TarefaHasTags> tarefaHasTagsList;
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idTarefa")
+    @Column(name = "idTarefa", nullable = false)
     private Integer idTarefa;
+    @Size(max = 45)
+    @Column(name = "tituloTarefa", length = 45)
+    private String tituloTarefa;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "descricaoTarefa", nullable = false, length = 65535)
+    private String descricaoTarefa;
     @Column(name = "dataFinalizarTarefa")
     @Temporal(TemporalType.DATE)
     private Date dataFinalizarTarefa;
     @Column(name = "concluidaTarefa")
     private Boolean concluidaTarefa;
-    @JoinColumn(name = "usuarioTarefa", referencedColumnName = "usuario")
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "tempoGasto", precision = 12)
+    private Float tempoGasto;
+    @Size(max = 45)
+    @Column(name = "tagTarefa", length = 45)
+    private String tagTarefa;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tarefa")
+    private List<TarefaHasTags> tarefaHasTagsList;
+    @JoinColumn(name = "usuarioTarefa", referencedColumnName = "usuario", nullable = false)
     @ManyToOne(optional = false)
     private Usuario usuarioTarefa;
 
@@ -93,6 +94,21 @@ public class Tarefa implements Serializable {
         this.idTarefa = idTarefa;
     }
 
+    public String getTituloTarefa() {
+        return tituloTarefa;
+    }
+
+    public void setTituloTarefa(String tituloTarefa) {
+        this.tituloTarefa = tituloTarefa;
+    }
+
+    public String getDescricaoTarefa() {
+        return descricaoTarefa;
+    }
+
+    public void setDescricaoTarefa(String descricaoTarefa) {
+        this.descricaoTarefa = descricaoTarefa;
+    }
 
     public Date getDataFinalizarTarefa() {
         return dataFinalizarTarefa;
@@ -108,6 +124,30 @@ public class Tarefa implements Serializable {
 
     public void setConcluidaTarefa(Boolean concluidaTarefa) {
         this.concluidaTarefa = concluidaTarefa;
+    }
+
+    public Float getTempoGasto() {
+        return tempoGasto;
+    }
+
+    public void setTempoGasto(Float tempoGasto) {
+        this.tempoGasto = tempoGasto;
+    }
+
+    public String getTagTarefa() {
+        return tagTarefa;
+    }
+
+    public void setTagTarefa(String tagTarefa) {
+        this.tagTarefa = tagTarefa;
+    }
+
+    public List<TarefaHasTags> getTarefaHasTagsList() {
+        return tarefaHasTagsList;
+    }
+
+    public void setTarefaHasTagsList(List<TarefaHasTags> tarefaHasTagsList) {
+        this.tarefaHasTagsList = tarefaHasTagsList;
     }
 
     public Usuario getUsuarioTarefa() {
@@ -141,47 +181,6 @@ public class Tarefa implements Serializable {
     @Override
     public String toString() {
         return "Entidades.Tarefa[ idTarefa=" + idTarefa + " ]";
-    }
-
-
-    public Float getTempoGasto() {
-        return tempoGasto;
-    }
-
-    public void setTempoGasto(Float tempoGasto) {
-        this.tempoGasto = tempoGasto;
-    }
-
-    public List<TarefaHasTags> getTarefaHasTagsList() {
-        return tarefaHasTagsList;
-    }
-
-    public void setTarefaHasTagsList(List<TarefaHasTags> tarefaHasTagsList) {
-        this.tarefaHasTagsList = tarefaHasTagsList;
-    }
-
-    public String getTituloTarefa() {
-        return tituloTarefa;
-    }
-
-    public void setTituloTarefa(String tituloTarefa) {
-        this.tituloTarefa = tituloTarefa;
-    }
-
-    public String getDescricaoTarefa() {
-        return descricaoTarefa;
-    }
-
-    public void setDescricaoTarefa(String descricaoTarefa) {
-        this.descricaoTarefa = descricaoTarefa;
-    }
-
-    public String getTagTarefa() {
-        return tagTarefa;
-    }
-
-    public void setTagTarefa(String tagTarefa) {
-        this.tagTarefa = tagTarefa;
     }
     
 }

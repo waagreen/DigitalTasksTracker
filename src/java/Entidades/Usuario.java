@@ -30,23 +30,24 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha")})
 public class Usuario implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 15)
-    @Column(name = "senha")
-    private String senha;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioNota")
-    private List<Nota> notaList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "usuario")
+    @Column(name = "usuario", nullable = false, length = 45)
     private String usuario;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 15)
+    @Column(name = "senha", nullable = false, length = 15)
+    private String senha;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioLista")
+    private List<Lista> listaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioTarefa")
     private List<Tarefa> tarefaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioNota")
+    private List<Nota> notaList;
 
     public Usuario() {
     }
@@ -68,6 +69,21 @@ public class Usuario implements Serializable {
         this.usuario = usuario;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public List<Lista> getListaList() {
+        return listaList;
+    }
+
+    public void setListaList(List<Lista> listaList) {
+        this.listaList = listaList;
+    }
 
     public List<Tarefa> getTarefaList() {
         return tarefaList;
@@ -75,6 +91,14 @@ public class Usuario implements Serializable {
 
     public void setTarefaList(List<Tarefa> tarefaList) {
         this.tarefaList = tarefaList;
+    }
+
+    public List<Nota> getNotaList() {
+        return notaList;
+    }
+
+    public void setNotaList(List<Nota> notaList) {
+        this.notaList = notaList;
     }
 
     @Override
@@ -100,23 +124,6 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "Entidades.Usuario[ usuario=" + usuario + " ]";
-    }
-
-
-    public List<Nota> getNotaList() {
-        return notaList;
-    }
-
-    public void setNotaList(List<Nota> notaList) {
-        this.notaList = notaList;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
     
 }

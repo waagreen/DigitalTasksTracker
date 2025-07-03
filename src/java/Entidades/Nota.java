@@ -31,23 +31,22 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Nota.findByTituloNota", query = "SELECT n FROM Nota n WHERE n.tituloNota = :tituloNota")})
 public class Nota implements Serializable {
 
-    @Size(max = 45)
-    @Column(name = "tituloNota")
-    private String tituloNota;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "conteudoNota")
-    private String conteudoNota;
-    @JoinColumn(name = "usuarioNota", referencedColumnName = "usuario")
-    @ManyToOne(optional = false)
-    private Usuario usuarioNota;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idNota")
+    @Column(name = "idNota", nullable = false)
     private Integer idNota;
+    @Size(max = 45)
+    @Column(name = "tituloNota", length = 45)
+    private String tituloNota;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "conteudoNota", length = 65535)
+    private String conteudoNota;
+    @JoinColumn(name = "usuarioNota", referencedColumnName = "usuario", nullable = false)
+    @ManyToOne(optional = false)
+    private Usuario usuarioNota;
 
     public Nota() {
     }
@@ -64,6 +63,29 @@ public class Nota implements Serializable {
         this.idNota = idNota;
     }
 
+    public String getTituloNota() {
+        return tituloNota;
+    }
+
+    public void setTituloNota(String tituloNota) {
+        this.tituloNota = tituloNota;
+    }
+
+    public String getConteudoNota() {
+        return conteudoNota;
+    }
+
+    public void setConteudoNota(String conteudoNota) {
+        this.conteudoNota = conteudoNota;
+    }
+
+    public Usuario getUsuarioNota() {
+        return usuarioNota;
+    }
+
+    public void setUsuarioNota(Usuario usuarioNota) {
+        this.usuarioNota = usuarioNota;
+    }
 
     @Override
     public int hashCode() {
@@ -88,31 +110,6 @@ public class Nota implements Serializable {
     @Override
     public String toString() {
         return "Entidades.Nota[ idNota=" + idNota + " ]";
-    }
-
-
-    public Usuario getUsuarioNota() {
-        return usuarioNota;
-    }
-
-    public void setUsuarioNota(Usuario usuarioNota) {
-        this.usuarioNota = usuarioNota;
-    }
-
-    public String getTituloNota() {
-        return tituloNota;
-    }
-
-    public void setTituloNota(String tituloNota) {
-        this.tituloNota = tituloNota;
-    }
-
-    public String getConteudoNota() {
-        return conteudoNota;
-    }
-
-    public void setConteudoNota(String conteudoNota) {
-        this.conteudoNota = conteudoNota;
     }
     
 }

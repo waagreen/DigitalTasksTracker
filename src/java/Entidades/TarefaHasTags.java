@@ -28,7 +28,7 @@ public class TarefaHasTags implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected TarefaHasTagsPK tarefaHasTagsPK;
-    @JoinColumn(name = "idTarefa", referencedColumnName = "idTarefa", insertable = false, updatable = false)
+    @JoinColumn(name = "idTarefa", referencedColumnName = "idTarefa", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Tarefa tarefa;
 

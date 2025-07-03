@@ -1,34 +1,49 @@
-<%-- 
-    Document   : Cadastrar
-    Created on : 11 de abr. de 2025, 13:22:40
-    Author     : mvitoria
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head lang="pt-br">
-        <title>Cadastrar</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="css/estilo.css">
-    </head>
-    
-    <body>
-        <h2 class="container-sm text-center">Cadastro</h2>
-        <div class="container-sm">
-            <form action = "Cadastrar" method = "post">
-                <div class="m-3">
-                    <label fid="usuario" for="formGroupExampleInput" class="form-label">Usuario:</label><br>
-                    <input class="form-control" id="usuario" type="text" name="usuario" min="1" maxlength="11" required><br>
-                </div>
-                <div class="m-3">
-                    <label id="senha" for="formGroupExampleInput" class="form-label">Senha:</label><br>
-                    <input class="form-control" type="password" name="senha" id="senha" required maxlength="16"><br>
-                </div>
-                <input type="submit" class="btn btn-outline-secondary" value="Cadastrar">
-            </form>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro - Sistema To-Do</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <div class="card shadow-sm mx-auto" style="max-width: 400px;">
+            <div class="card-body">
+                <h3 class="text-center text-primary mb-4">Cadastro</h3>
+                <form action="Cadastrar" method="post">
+                    <div class="mb-3">
+                        <label for="usuario" class="form-label">Usuário</label>
+                        <input 
+                            type="text" 
+                            id="usuario" 
+                            name="usuario" 
+                            maxlength="11" 
+                            class="form-control" 
+                            required
+                        >
+                    </div>
+                    <div class="mb-3">
+                        <label for="senha" class="form-label">Senha</label>
+                        <input 
+                            type="password" 
+                            id="senha" 
+                            name="senha" 
+                            maxlength="16" 
+                            class="form-control" 
+                            required
+                        >
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </body>
+    </div>
+
+</body>
 </html>
