@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>HistÃ³rico - Sistema To-Do</title>
+    <title>Histórico - Sistema To-Do</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/estilo.css">
     <link rel="stylesheet" href="css/pagesCSS.css">
@@ -32,12 +32,12 @@
             </li>
             <li class="nav-item hover-grow">
             <a class="nav-link d-flex align-items-center gap-1" href="Estatistica.jsp">
-                <i class="bi bi-graph-up"></i> EstatÃ­sticas
+                <i class="bi bi-graph-up"></i> Estatí­sticas
             </a>
             </li>
             <li class="nav-item hover-grow">
             <a class="nav-link d-flex align-items-center gap-1" href="Historico.jsp">
-                <i class="bi bi-clock-fill"></i> HistÃ³rico
+                <i class="bi bi-clock-fill"></i> Histórico
             </a>
             </li>
             <li class="nav-item hover-grow">
@@ -51,7 +51,7 @@
     </nav>
 
 <div class="historico-container">
-    <h2 class="text-center mb-4">HistÃ³rico de Atividades</h2>
+    <h2 class="text-center mb-4">Histórico de Atividades</h2>
 
     <div class="registro">
         <div class="data">13/06/2025</div>

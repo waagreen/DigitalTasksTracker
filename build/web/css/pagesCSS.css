@@ -1,8 +1,13 @@
+body {
+    background-color: #f8f9fa; /* Cor igual à da navbar */
+}
+
 .header {
     position: static;
     width: 100%;
     top: 0;
 }
+
 
 .container p {
     text-align: justify;
@@ -21,4 +26,185 @@
 
 .ui-card .ui-card-title {
     color: #333;
+}
+
+.hover-grow {
+    transition: transform 0.3s ease;
+}
+
+.hover-grow:hover {
+    transform: scale(1.05);
+}
+
+.hover-follow {
+    transition: transform 0.1s ease;
+    background-color: transparent;
+    box-shadow: none;
+    will-change: transform;
+}
+
+.clean-hover {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.hover-follow:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.distintivo-container {
+    display: flex;
+    flex-wrap: nowrap; /* Impede quebra de linha */
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.distintivo {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    background-color: #f8f9fa;
+    user-select: none;
+    cursor: default;
+}
+
+.perfil-foto {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background-color: #ddd;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.1s ease, box-shadow 1s ease;
+    will-change: transform;
+    user-select: none;
+    cursor: default;
+}
+
+.perfil-foto:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+.day {
+    background-color: white;
+    border: 1px solid #dee2e6;
+    padding: 15px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.day:hover {
+    background-color: #e2e6ea;
+}
+.today {
+    background-color: #0d6efd;
+    color: white;
+    font-weight: bold;
+}
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.calendar-nav button {
+    background-color: white;
+    border: 1px solid #ced4da;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.evento {
+    background-color: #ffc107;
+    color: #212529;
+    font-size: 0.75rem;
+    border-radius: 4px;
+    padding: 2px 4px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.historico-container {
+    max-width: 800px;
+    margin: 30px auto;
+}
+.registro {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+.registro:hover {
+    transform: scale(1.01);
+}
+.data {
+    font-weight: bold;
+    color: #0d6efd;
+}
+.descricao {
+    margin-top: 5px;
+}
+
+.navbar .nav-link i {
+  transition: transform 0.5s ease, color 0.2s ease;
+  font-size: 1.2rem;
+}
+
+.navbar .nav-link:hover i {
+  transform: scale(1.2);
+  color: #0d6efd;
+}
+
+.navbar .nav-link.active i {
+  font-weight: bold;
+  color: #0d6efd;
+}
+
+/* Preenche o ícone ao passar o mouse ou quando ativo */
+.navbar .nav-item a.nav-link i::before {
+    transition: 0.1s ease-in-out;
+}
+
+/* Ícone preenchido ao hover */
+.navbar .nav-item a.nav-link:hover i.bi-clipboard::before {
+    content: "\F71D"; /* bi-clipboard-fill */
+}
+.navbar .nav-item a.nav-link:hover i.bi-sticky::before {
+    content: "\F58C"; /* bi-sticky-fill */
+}
+.navbar .nav-item a.nav-link:hover i.bi-list::before {
+    content: "\F478"; /* bi-list-ul */
+}
+.navbar .nav-item a.nav-link:hover i.bi-calendar::before {
+    content: "\F1E9"; /* bi-calendar-fill */
+}
+.navbar .nav-item a.nav-link:hover i.bi-graph-up::before {
+    content: "\F673"; /* bi-graph-up-arrow */
+}
+.navbar .nav-item a.nav-link:hover i.bi-clock-history::before {
+    content: "\F291"; /* bi-clock-fill */
+}
+.navbar .nav-item a.nav-link:hover i.bi-person::before {
+    content: "\F4DA"; /* bi-person-fill */
 }

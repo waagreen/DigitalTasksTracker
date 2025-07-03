@@ -36,12 +36,12 @@
             </li>
             <li class="nav-item hover-grow">
             <a class="nav-link d-flex align-items-center gap-1" href="Estatistica.jsp">
-                <i class="bi bi-graph-up"></i> Estat√≠sticas
+                <i class="bi bi-graph-up"></i> EstatÌ≠sticas
             </a>
             </li>
             <li class="nav-item hover-grow">
             <a class="nav-link d-flex align-items-center gap-1" href="Historico.jsp">
-                <i class="bi bi-clock-history"></i> Hist√≥rico
+                <i class="bi bi-clock-history"></i> HistÛrico
             </a>
             </li>
             <li class="nav-item hover-grow">
@@ -67,7 +67,7 @@
         </div>
 
         <div class="ms-3">
-            <h4>Nome do Usu√°rio</h4>
+            <h4>Nome do Usu·rio</h4>
             <!-- Streak -->
             <div class="d-flex align-items-center gap-2 hover-grow hover-follow clean-hover" title="Multiplicador: 2.62" style="padding: 0;">
                 <i class="bi bi-fire" style="color: #FFA500; font-size: 30px;"></i>
@@ -75,7 +75,7 @@
             </div>
             <!-- Nivel -->
             <div class="mt-3 hover-grow hover-follow clean-hover" title="60/100">
-                <label class="form-label" style="font-weight: bold;">N√çVEL: 5</label>
+                <label class="form-label" style="font-weight: bold;">NÕVEL: 5</label>
                 <div class="progress" style="height: 20px;">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
