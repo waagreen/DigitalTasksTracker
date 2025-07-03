@@ -34,17 +34,20 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Lista.findByNomeLista", query = "SELECT l FROM Lista l WHERE l.nomeLista = :nomeLista")})
 public class Lista implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "nomeLista")
+    private String nomeLista;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLista")
+    private List<TarefaLista> tarefaListaList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idLista", nullable = false)
     private Integer idLista;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "nomeLista", nullable = false, length = 255)
-    private String nomeLista;
     @JoinColumn(name = "usuarioLista", referencedColumnName = "usuario", nullable = false)
     @ManyToOne(optional = false)
     private Usuario usuarioLista;
@@ -71,13 +74,6 @@ public class Lista implements Serializable {
         this.idLista = idLista;
     }
 
-    public String getNomeLista() {
-        return nomeLista;
-    }
-
-    public void setNomeLista(String nomeLista) {
-        this.nomeLista = nomeLista;
-    }
 
     public Usuario getUsuarioLista() {
         return usuarioLista;
@@ -118,6 +114,22 @@ public class Lista implements Serializable {
     @Override
     public String toString() {
         return "Entidades.Lista[ idLista=" + idLista + " ]";
+    }
+
+    public String getNomeLista() {
+        return nomeLista;
+    }
+
+    public void setNomeLista(String nomeLista) {
+        this.nomeLista = nomeLista;
+    }
+
+    public List<TarefaLista> getTarefaListaList() {
+        return tarefaListaList;
+    }
+
+    public void setTarefaListaList(List<TarefaLista> tarefaListaList) {
+        this.tarefaListaList = tarefaListaList;
     }
     
 }

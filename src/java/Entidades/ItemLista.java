@@ -32,18 +32,19 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ItemLista.findByConcluido", query = "SELECT i FROM ItemLista i WHERE i.concluido = :concluido")})
 public class ItemLista implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "descricao")
+    private String descricao;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idItem", nullable = false)
     private Integer idItem;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Size(min = 1, max = 65535)
-    @Column(name = "descricao", nullable = false, length = 65535)
-    private String descricao;
     @Column(name = "concluido")
     private Boolean concluido;
     @JoinColumn(name = "lista", referencedColumnName = "idLista", nullable = false)
@@ -70,13 +71,6 @@ public class ItemLista implements Serializable {
         this.idItem = idItem;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 
     public Boolean getConcluido() {
         return concluido;
@@ -117,6 +111,14 @@ public class ItemLista implements Serializable {
     @Override
     public String toString() {
         return "Entidades.ItemLista[ idItem=" + idItem + " ]";
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
     
 }

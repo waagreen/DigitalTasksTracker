@@ -30,6 +30,12 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha")})
 public class Usuario implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 15)
+    @Column(name = "senha")
+    private String senha;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -37,11 +43,6 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "usuario", nullable = false, length = 45)
     private String usuario;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 15)
-    @Column(name = "senha", nullable = false, length = 15)
-    private String senha;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioLista")
     private List<Lista> listaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioTarefa")
@@ -69,13 +70,6 @@ public class Usuario implements Serializable {
         this.usuario = usuario;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
 
     public List<Lista> getListaList() {
         return listaList;
@@ -124,6 +118,14 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "Entidades.Usuario[ usuario=" + usuario + " ]";
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
     
 }
